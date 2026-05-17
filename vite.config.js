@@ -5,16 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    // ⚠️ Terser ki jagah default esbuild use karein, ye zyada fast hai
+    minify: 'esbuild', 
     rollupOptions: {
       output: {
-        // Updated to a function format compatible with Vite 8 / Rolldown
         manualChunks(id) {
           const packages = ['react', 'react-dom', 'framer-motion', 'react-scroll'];
           if (packages.some(pkg => id.includes(`node_modules/${pkg}`))) {
@@ -23,5 +17,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  // Esbuild ke zariye console aur debugger remove karne ke liye:
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
 });
