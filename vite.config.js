@@ -5,8 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    // ⚠️ Terser ki jagah default esbuild use karein, ye zyada fast hai
-    minify: 'esbuild', 
+    minify: 'oxc', // Vite 8 ka default
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -18,8 +17,8 @@ export default defineConfig({
       },
     },
   },
-  // Esbuild ke zariye console aur debugger remove karne ke liye:
-  esbuild: {
+  // esbuild ki jagah oxc options use karein console drop karne ke liye
+  oxc: {
     drop: ['console', 'debugger'],
   },
 });
