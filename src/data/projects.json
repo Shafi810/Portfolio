@@ -8,7 +8,7 @@
       "Tailwind v4",
       "REST APIs"
     ],
-    "image": "/public/SaaS-Landing-page.webp",
+    "image": "/SaaS-Landing-page.webp",
     "live": "https://saas-landing-page-gray-eight.vercel.app/",
     "github": "https://github.com/Shafi810/SaaS-Landing-Page"
   },
@@ -28,7 +28,7 @@
   },
   {
     "id": 3,
-    "title": "Crypto Price Tracker",
+    "title": "ultra-modern Kanban Board",
     "description": "A sleek, ultra-modern Kanban Board built with React, Vite, Tailwind CSS v4, and Framer Motion. Features advanced state management, smooth drag-and-drop interactions, dynamic priority filtering, and instant keyboard shortcuts for seamless workflow optimization.",
     "tags": [
       "React (Vite)",
