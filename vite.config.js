@@ -14,8 +14,12 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'framer-motion', 'react-scroll'],
+        // Updated to a function format compatible with Vite 8 / Rolldown
+        manualChunks(id) {
+          const packages = ['react', 'react-dom', 'framer-motion', 'react-scroll'];
+          if (packages.some(pkg => id.includes(`node_modules/${pkg}`))) {
+            return 'vendor';
+          }
         },
       },
     },
