@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "HTML5",
+    "category": "Core",
+    "icon": "FaHtml5"
+  },
+  {
+    "id": 2,
+    "name": "JavaScript",
+    "category": "Core",
+    "icon": "FaJs"
+  },
+  {
+    "id": 3,
+    "name": "React",
+    "category": "Framework",
+    "icon": "FaReact"
+  },
+  {
+    "id": 4,
+    "name": "Vite",
+    "category": "Tools",
+    "icon": "SiVite"
+  },
+  {
+    "id": 5,
+    "name": "Tailwind CSS",
+    "category": "Framework",
+    "icon": "SiTailwindcss"
+  },
+  {
+    "id": 6,
+    "name": "Bootstrap",
+    "category": "Framework",
+    "icon": "FaBootstrap"
+  },
+  {
+    "id": 7,
+    "name": "Git",
+    "category": "Tools",
+    "icon": "FaGitAlt"
+  },
+  {
+    "id": 8,
+    "name": "GitHub",
+    "category": "Tools",
+    "icon": "FaGithub"
+  },
+  {
+    "id": 9,
+    "name": "VS Code",
+    "category": "Tools",
+    "icon": "TbBrandVscode"
+  },
+  {
+    "id": 10,
+    "name": "Responsive Design",
+    "category": "Core",
+    "icon": "MdDevices"
+  },
+  {
+    "id": 11,
+    "name": "REST APIs",
+    "category": "Core",
+    "icon": "TbApi"
+  },
+  {
+    "id": 12,
+    "name": "Figma",
+    "category": "Tools",
+    "icon": "FaFigma"
+  }
+]
