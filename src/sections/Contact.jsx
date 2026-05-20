@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from '@emailjs/browser';
 
@@ -16,7 +16,6 @@ import {
 } from "react-icons/fa";
 
 const Contact = () => {
-  const formRef = useRef();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ success: false, error: false });
   const [formData, setFormData] = useState({
@@ -30,41 +29,71 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus({ success: false, error: false });
 
-    // Fetching keys safely from .env
+    // Fetching keys safely from your Vite .env config
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const adminTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    
+    // Add your client auto-responder template ID from EmailJS here
+    const clientTemplateId = "your_client_autoresponder_template_id"; 
 
-    // Validation to check if keys are setup correctly
-    if (!serviceId || !templateId || !publicKey) {
+    // Configuration check
+    if (!serviceId || !adminTemplateId || !publicKey) {
       console.error("EmailJS environment variables are missing!");
       alert("Configuration Error: Environment variables missing.");
       setLoading(false);
       return;
     }
 
-    // Using .env variables dynamically
-    emailjs.sendForm(
-      serviceId,
-      templateId,
-      formRef.current,
-      publicKey
-    )
-    .then(() => {
+    try {
+      // 1. Automate Admin Notification Email to You
+      await emailjs.send(
+        serviceId,
+        adminTemplateId,
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          time: new Date().toLocaleString(), // Injects exact timestamp for your admin view
+        },
+        publicKey
+      );
+
+      // 2. Automate Confirmation Email to Your Client
+      if (clientTemplateId && clientTemplateId !== "your_client_autoresponder_template_id") {
+        await emailjs.send(
+          serviceId,
+          clientTemplateId,
+          {
+            name: formData.name,
+            email: formData.email,
+          },
+          publicKey
+        );
+      }
+
+      // Clear layout state and show visual success feedback
       setLoading(false);
       setStatus({ success: true, error: false });
       setFormData({ name: "", email: "", subject: "", message: "" });
-    })
-    .catch((err) => {
-      console.error("EmailJS Error:", err);
+
+      // 3. Automate Client Booking Redirect
+      // Delaying 1.5 seconds lets the user experience your smooth success animation before leaving
+      setTimeout(() => {
+        window.location.href = "https://tidycal.com/shafi-react-dev"; // Replace with your link
+      }, 1500);
+
+    } catch (err) {
+      console.error("EmailJS Automation Error:", err);
       setLoading(false);
       setStatus({ success: false, error: true });
-    });
+    }
   };
 
   return (
@@ -105,9 +134,9 @@ const Contact = () => {
             {/* Social Links */}
             <div className="flex gap-4 mt-4">
               {[
-                { icon: <FaGithub />, link: "https://github.com/Shafi810" },
-                { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/shafe-khan" },
-                { icon: <FaTwitter />, link: "https://x.com/shafek790" }
+                { icon: <FaGithub />, link: "https://github.com" },
+                { icon: <FaLinkedin />, link: "https://linkedin.com" },
+                { icon: <FaTwitter />, link: "https://x.com" }
               ].map((social, idx) => (
                 <a
                   key={idx}
@@ -131,7 +160,6 @@ const Contact = () => {
             className="w-full lg:w-[60%]"
           >
             <form
-              ref={formRef}
               onSubmit={handleSubmit}
               className="bg-[#111] border border-gray-800 rounded-2xl p-8 flex flex-col gap-5"
             >
