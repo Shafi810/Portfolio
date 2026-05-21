@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/vercel.app", "destination": "/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
